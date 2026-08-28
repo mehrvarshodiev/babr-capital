@@ -41,6 +41,9 @@ export default function ApplicationForm({ t }: { t: Copy }) {
     e.currentTarget.reset();
   };
 
+  const fieldClass = 'peer min-h-14 w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 pb-3 pt-5 text-base text-white shadow-sm outline-none transition placeholder-transparent hover:border-white/25 focus:border-[#c8923e] focus:bg-white/[0.09] focus:ring-4 focus:ring-[#c8923e]/10';
+  const labelClass = 'pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-slate-400 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-2 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:text-[#d6a04b] peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:translate-y-0 peer-not-placeholder-shown:text-xs';
+
   return (
     <section id="contact" className="section">
       <div className="mx-auto max-w-7xl px-6">
@@ -56,18 +59,12 @@ export default function ApplicationForm({ t }: { t: Copy }) {
             </div>
 
             <form onSubmit={submit} className="grid gap-5 sm:grid-cols-2">
-              <label className="field">
-                <span className="mb-1 text-sm font-medium text-slate-200">{t.form.name}</span>
-                <input
-                  name="name"
-                  autoComplete="name"
-                  placeholder={t.form.name}
-                  className="min-h-12 w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-base text-white shadow-sm outline-none transition placeholder:text-slate-500 hover:border-white/25 focus:border-[#c8923e] focus:bg-white/[0.09] focus:ring-4 focus:ring-[#c8923e]/10"
-                />
+              <label className="relative block">
+                <input name="name" autoComplete="name" placeholder=" " className={fieldClass} />
+                <span className={labelClass}>{t.form.name}</span>
               </label>
 
-              <label className="field">
-                <span className="mb-1 text-sm font-medium text-slate-200">{t.form.phone}</span>
+              <label className="relative block">
                 <input
                   name="phone"
                   type="tel"
@@ -78,22 +75,18 @@ export default function ApplicationForm({ t }: { t: Copy }) {
                     setPhone(formatPhone(e.target.value));
                     setStatus('idle');
                   }}
-                  placeholder="+992 (__) ___-__-__"
+                  placeholder=" "
                   maxLength={19}
                   aria-describedby="phone-hint"
-                  className="min-h-12 w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-base text-white shadow-sm outline-none transition placeholder:text-slate-500 hover:border-white/25 focus:border-[#c8923e] focus:bg-white/[0.09] focus:ring-4 focus:ring-[#c8923e]/10"
+                  className={fieldClass}
                 />
-                <span id="phone-hint" className="text-xs text-slate-500">+992 (XX) XXX-XX-XX</span>
+                <span className={labelClass}>{t.form.phone}</span>
+                <span id="phone-hint" className="mt-1 block px-1 text-xs text-slate-500">+992 (XX) XXX-XX-XX</span>
               </label>
 
-              <label className="field sm:col-span-2">
-                <span className="mb-1 text-sm font-medium text-slate-200">{t.form.message}</span>
-                <textarea
-                  name="message"
-                  rows={4}
-                  placeholder={t.form.message}
-                  className="min-h-32 w-full resize-y rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-base leading-6 text-white shadow-sm outline-none transition placeholder:text-slate-500 hover:border-white/25 focus:border-[#c8923e] focus:bg-white/[0.09] focus:ring-4 focus:ring-[#c8923e]/10"
-                />
+              <label className="relative block sm:col-span-2">
+                <textarea name="message" rows={4} placeholder=" " className={`${fieldClass} min-h-32 resize-y leading-6`} />
+                <span className={labelClass}>{t.form.message}</span>
               </label>
 
               <div className="sm:col-span-2 flex flex-wrap items-center justify-between gap-3">
