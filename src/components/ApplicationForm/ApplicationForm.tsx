@@ -72,64 +72,30 @@ export default function ApplicationForm({ t }: { t: Copy }) {
               <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">{t.form.title}</h2>
               <p className="mt-4 leading-7 text-slate-300">{t.form.text}</p>
               <div className="mt-6 flex items-center gap-2 text-xs text-slate-400">
-                <LockKeyhole size={14} /> Ваши данные защищены
+                <LockKeyhole size={14} /> {t.form.privacy}
               </div>
             </div>
 
             <form onSubmit={submit} className="grid gap-5 sm:grid-cols-2" aria-busy={isSubmitting}>
               <label className="relative block">
-                <input
-                  name="name"
-                  autoComplete="name"
-                  placeholder=" "
-                  value={values.name}
-                  disabled={isSubmitting}
-                  onChange={(e) => { setValues((v) => ({ ...v, name: e.target.value })); setStatus('idle'); }}
-                  onBlur={() => setTouched((v) => ({ ...v, name: true }))}
-                  aria-invalid={touched.name && !valid.name}
-                  className={`${fieldClass} ${fieldState(touched.name, valid.name)}`}
-                />
+                <input name="name" autoComplete="name" placeholder=" " value={values.name} disabled={isSubmitting} onChange={(e) => { setValues((v) => ({ ...v, name: e.target.value })); setStatus('idle'); }} onBlur={() => setTouched((v) => ({ ...v, name: true }))} aria-invalid={touched.name && !valid.name} className={`${fieldClass} ${fieldState(touched.name, valid.name)}`} />
                 <span className={labelClass}>{t.form.name}</span>
-                {touched.name && !valid.name && <span className="mt-1 flex items-center gap-1 px-1 text-xs text-red-300"><CircleAlert size={13} />Введите имя и фамилию</span>}
+                {touched.name && !valid.name && <span className="mt-1 flex items-center gap-1 px-1 text-xs text-red-300"><CircleAlert size={13} />{t.form.validation.name}</span>}
                 {touched.name && valid.name && <CheckCircle2 size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-emerald-300" />}
               </label>
 
               <label className="relative block">
-                <input
-                  name="phone"
-                  type="tel"
-                  inputMode="tel"
-                  autoComplete="tel"
-                  value={phone}
-                  onChange={(e) => { setPhone(formatPhone(e.target.value)); setStatus('idle'); }}
-                  onBlur={() => setTouched((v) => ({ ...v, phone: true }))}
-                  placeholder=" "
-                  maxLength={19}
-                  aria-describedby="phone-hint"
-                  aria-invalid={touched.phone && !valid.phone}
-                  disabled={isSubmitting}
-                  className={`${fieldClass} ${fieldState(touched.phone, valid.phone)}`}
-                />
+                <input name="phone" type="tel" inputMode="tel" autoComplete="tel" value={phone} onChange={(e) => { setPhone(formatPhone(e.target.value)); setStatus('idle'); }} onBlur={() => setTouched((v) => ({ ...v, phone: true }))} placeholder=" " maxLength={19} aria-describedby="phone-hint" aria-invalid={touched.phone && !valid.phone} disabled={isSubmitting} className={`${fieldClass} ${fieldState(touched.phone, valid.phone)}`} />
                 <span className={labelClass}>{t.form.phone}</span>
-                <span id="phone-hint" className="mt-1 block px-1 text-xs text-slate-500">+992 (XX) XXX-XX-XX</span>
-                {touched.phone && !valid.phone && <span className="mt-1 flex items-center gap-1 px-1 text-xs text-red-300"><CircleAlert size={13} />Введите полный номер</span>}
+                <span id="phone-hint" className="mt-1 block px-1 text-xs text-slate-500">{t.form.phoneHint}</span>
+                {touched.phone && !valid.phone && <span className="mt-1 flex items-center gap-1 px-1 text-xs text-red-300"><CircleAlert size={13} />{t.form.validation.phone}</span>}
                 {touched.phone && valid.phone && <CheckCircle2 size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-emerald-300" />}
               </label>
 
               <label className="relative block sm:col-span-2">
-                <textarea
-                  name="message"
-                  rows={4}
-                  placeholder=" "
-                  value={values.message}
-                  disabled={isSubmitting}
-                  onChange={(e) => { setValues((v) => ({ ...v, message: e.target.value })); setStatus('idle'); }}
-                  onBlur={() => setTouched((v) => ({ ...v, message: true }))}
-                  aria-invalid={touched.message && !valid.message}
-                  className={`${fieldClass} min-h-32 resize-y leading-6 ${fieldState(touched.message, valid.message)}`}
-                />
+                <textarea name="message" rows={4} placeholder=" " value={values.message} disabled={isSubmitting} onChange={(e) => { setValues((v) => ({ ...v, message: e.target.value })); setStatus('idle'); }} onBlur={() => setTouched((v) => ({ ...v, message: true }))} aria-invalid={touched.message && !valid.message} className={`${fieldClass} min-h-32 resize-y leading-6 ${fieldState(touched.message, valid.message)}`} />
                 <span className={labelClass}>{t.form.message}</span>
-                {touched.message && !valid.message && <span className="mt-1 flex items-center gap-1 px-1 text-xs text-red-300"><CircleAlert size={13} />Сообщение должно содержать минимум 5 символов</span>}
+                {touched.message && !valid.message && <span className="mt-1 flex items-center gap-1 px-1 text-xs text-red-300"><CircleAlert size={13} />{t.form.validation.message}</span>}
                 {touched.message && valid.message && <CheckCircle2 size={16} className="absolute right-4 top-6 text-emerald-300" />}
               </label>
 
@@ -139,7 +105,7 @@ export default function ApplicationForm({ t }: { t: Copy }) {
                   {status === 'error' && <span className="text-red-300">{t.form.error}</span>}
                 </div>
                 <button className="gold-btn min-w-36 disabled:cursor-not-allowed disabled:opacity-70" type="submit" disabled={isSubmitting} aria-disabled={isSubmitting}>
-                  {isSubmitting ? <><Loader2 size={16} className="animate-spin" /> Отправка...</> : <>{t.form.send}<Send size={16} /></>}
+                  {isSubmitting ? <><Loader2 size={16} className="animate-spin" /> {t.form.sending}</> : <>{t.form.send}<Send size={16} /></>}
                 </button>
               </div>
             </form>
