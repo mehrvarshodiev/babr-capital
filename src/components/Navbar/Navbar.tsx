@@ -35,7 +35,10 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
       className={`site-navbar fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 ${visible ? 'is-visible' : 'is-hidden'}`}
       style={{ transform: visible ? 'translateY(0)' : 'translateY(calc(-100% - 18px))', transition: 'transform 320ms cubic-bezier(.22,1,.36,1)' }}
     >
-      <nav className="glass-soft nav-shell mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-4 py-3 sm:px-5" style={{ opacity: 0.9 }}>
+      <nav
+        className="glass-soft nav-shell mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-4 py-3 sm:px-5"
+        style={{ opacity: 0.76, background: theme === 'dark' ? 'rgba(7, 15, 27, 0.74)' : 'rgba(226, 232, 240, 0.78)', borderColor: theme === 'dark' ? 'rgba(148, 163, 184, 0.10)' : 'rgba(15, 23, 42, 0.08)', boxShadow: theme === 'dark' ? '0 12px 36px rgba(0,0,0,.20)' : '0 12px 36px rgba(15,23,42,.07)' }}
+      >
         <button onClick={() => go('top')} className="flex items-center gap-3 font-extrabold tracking-tight" aria-label="Babr Capital">
           <span className="brand-mark">B</span>
           <span className="hidden sm:block">BABR <span className="text-cyan-300">CAPITAL</span></span>
