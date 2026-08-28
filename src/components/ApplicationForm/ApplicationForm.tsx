@@ -2,22 +2,42 @@ import { FormEvent, useState } from 'react';
 import { CheckCircle2, LockKeyhole, Send } from 'lucide-react';
 import type { Copy } from '../../data/translations';
 
+function formatPhone(value: string) {
+  let digits = value.replace(/\D/g, '');
+  if (digits.startsWith('992')) digits = digits.slice(3);
+  if (digits.startsWith('0')) digits = digits.slice(1);
+  digits = digits.slice(0, 9);
+
+  let formatted = '+992';
+  if (digits.length) formatted += ` (${digits.slice(0, 2)}`;
+  if (digits.length >= 2) formatted += ')';
+  if (digits.length > 2) formatted += ` ${digits.slice(2, 5)}`;
+  if (digits.length > 5) formatted += `-${digits.slice(5, 7)}`;
+  if (digits.length > 7) formatted += `-${digits.slice(7, 9)}`;
+  return formatted;
+}
+
+function isValidTajikPhone(value: string) {
+  return /^\+992 \(\d{2}\) \d{3}-\d{2}-\d{2}$/.test(value);
+}
+
 export default function ApplicationForm({ t }: { t: Copy }) {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [phone, setPhone] = useState('');
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const name = String(f.get('name') || '').trim();
-    const phone = String(f.get('phone') || '').trim();
     const message = String(f.get('message') || '').trim();
 
-    if (!name || !message || !/^[+0-9 ()-]{7,}$/.test(phone)) {
+    if (!name || !message || !isValidTajikPhone(phone)) {
       setStatus('error');
       return;
     }
 
     setStatus('success');
+    setPhone('');
     e.currentTarget.reset();
   };
 
@@ -50,10 +70,20 @@ export default function ApplicationForm({ t }: { t: Copy }) {
                 <span className="mb-1 text-sm font-medium text-slate-200">{t.form.phone}</span>
                 <input
                   name="phone"
+                  type="tel"
+                  inputMode="tel"
                   autoComplete="tel"
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(formatPhone(e.target.value));
+                    setStatus('idle');
+                  }}
                   placeholder="+992 (__) ___-__-__"
+                  maxLength={19}
+                  aria-describedby="phone-hint"
                   className="min-h-12 w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-base text-white shadow-sm outline-none transition placeholder:text-slate-500 hover:border-white/25 focus:border-[#c8923e] focus:bg-white/[0.09] focus:ring-4 focus:ring-[#c8923e]/10"
                 />
+                <span id="phone-hint" className="text-xs text-slate-500">+992 (XX) XXX-XX-XX</span>
               </label>
 
               <label className="field sm:col-span-2">
