@@ -36,8 +36,15 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
       style={{ transform: visible ? 'translateY(0)' : 'translateY(calc(-100% - 18px))', transition: 'transform 320ms cubic-bezier(.22,1,.36,1)' }}
     >
       <nav
-        className="glass-soft nav-shell mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-4 py-3 sm:px-5"
-        style={{ opacity: 0.76, background: theme === 'dark' ? 'rgba(7, 15, 27, 0.74)' : 'rgba(226, 232, 240, 0.78)', borderColor: theme === 'dark' ? 'rgba(148, 163, 184, 0.10)' : 'rgba(15, 23, 42, 0.08)', boxShadow: theme === 'dark' ? '0 12px 36px rgba(0,0,0,.20)' : '0 12px 36px rgba(15,23,42,.07)' }}
+        className="glass nav-shell mx-auto flex max-w-7xl items-center justify-between rounded-2xl px-4 py-3 sm:px-5"
+        style={{
+          opacity: 0.92,
+          background: theme === 'dark'
+            ? 'linear-gradient(135deg, rgba(15, 35, 50, 0.92), rgba(8, 47, 47, 0.88))'
+            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(231, 246, 244, 0.78))',
+          borderColor: theme === 'dark' ? 'rgba(148, 163, 184, 0.16)' : 'rgba(15, 23, 42, 0.10)',
+          boxShadow: theme === 'dark' ? '0 12px 36px rgba(0,0,0,.24)' : '0 12px 36px rgba(15,23,42,.08)'
+        }}
       >
         <button onClick={() => go('top')} className="flex items-center gap-3 font-extrabold tracking-tight" aria-label="Babr Capital">
           <span className="brand-mark">B</span>
