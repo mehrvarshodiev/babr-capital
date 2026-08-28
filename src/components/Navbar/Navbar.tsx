@@ -36,16 +36,18 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
       style={{ transform: visible ? 'translateY(0)' : 'translateY(calc(-100% - 18px))', transition: 'transform 320ms cubic-bezier(.22,1,.36,1)' }}
     >
       <nav
-        className="glass nav-shell mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-white/10 bg-slate-950/90 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-5"
+        className="glass nav-shell mx-auto flex max-w-7xl items-center justify-between rounded-2xl border px-4 py-3 sm:px-5"
         style={{
-          opacity: 0.96,
+          opacity: 1,
           background: theme === 'dark'
-            ? 'rgba(2, 6, 23, 0.90)'
+            ? 'rgba(7, 24, 36, 0.58)'
             : 'linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(231, 246, 244, 0.78))',
-          borderColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.10)' : 'rgba(15, 23, 42, 0.10)',
-          boxShadow: theme === 'dark' ? '0 12px 36px rgba(0,0,0,.24)' : '0 12px 36px rgba(15,23,42,.08)',
-          backdropFilter: 'blur(24px) saturate(140%)',
-          WebkitBackdropFilter: 'blur(24px) saturate(140%)'
+          borderColor: theme === 'dark' ? 'rgba(148, 206, 216, 0.13)' : 'rgba(15, 23, 42, 0.10)',
+          boxShadow: theme === 'dark'
+            ? '0 16px 44px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.045)'
+            : '0 12px 36px rgba(15,23,42,.08)',
+          backdropFilter: 'blur(28px) saturate(155%)',
+          WebkitBackdropFilter: 'blur(28px) saturate(155%)'
         }}
       >
         <button onClick={() => go('top')} className="flex items-center gap-3 font-extrabold tracking-tight" aria-label="Babr Capital">
