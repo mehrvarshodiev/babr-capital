@@ -25,4 +25,4 @@ export const translations = {
     footer:{desc:'Финансовая организация стратегического управления капиталом.',nav:'Навигация',contact:'Контакты',copy:'© 2026 Babr Capital. Все права защищены.'}
   }
 } as const;
-export type Copy = typeof translations.tg;
+export type Copy = (typeof translations)[Language];
