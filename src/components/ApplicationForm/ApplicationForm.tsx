@@ -1,1 +1,90 @@
-import { FormEvent, useState } from 'react'; import { CheckCircle2, LockKeyhole, Send } from 'lucide-react'; import type { Copy } from '../../data/translations'; export default function ApplicationForm({t}:{t:Copy}){const [status,setStatus]=useState<'idle'|'success'|'error'>('idle');const submit=(e:FormEvent<HTMLFormElement>)=>{e.preventDefault();const f=new FormData(e.currentTarget);const name=String(f.get('name')||'').trim(),phone=String(f.get('phone')||'').trim(),message=String(f.get('message')||'').trim();if(!name||!message||!/^[+0-9 ()-]{7,}$/.test(phone)){setStatus('error');return}setStatus('success');e.currentTarget.reset()};return <section id="contact" className="section"><div className="mx-auto max-w-7xl px-6"><div className="overflow-hidden rounded-[2rem] bg-[#07111f] p-6 text-white shadow-2xl sm:p-10"><div className="grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:items-center"><div><span className="section-kicker">{t.form.kicker}</span><h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">{t.form.title}</h2><p className="mt-4 leading-7 text-slate-300">{t.form.text}</p><div className="mt-6 flex items-center gap-2 text-xs text-slate-400"><LockKeyhole size={14}/> Ваши данные защищены</div></div><form onSubmit={submit} className="grid gap-4 sm:grid-cols-2"><label className="field"><span>{t.form.name}</span><input name="name" autoComplete="name" placeholder={t.form.name}/></label><label className="field"><span>{t.form.phone}</span><input name="phone" autoComplete="tel" placeholder="+992 (__) ___-__-__"/></label><label className="field sm:col-span-2"><span>{t.form.message}</span><textarea name="message" rows={4} placeholder={t.form.message}/></label><div className="sm:col-span-2 flex flex-wrap items-center justify-between gap-3"><div className="min-h-6 text-sm">{status==='success'&&<span className="flex items-center gap-2 text-emerald-300"><CheckCircle2 size={16}/>{t.form.success}</span>}{status==='error'&&<span className="text-red-300">{t.form.error}</span>}</div><button className="gold-btn" type="submit">{t.form.send}<Send size={16}/></button></div></form></div></div></div></section>}
+import { FormEvent, useState } from 'react';
+import { CheckCircle2, LockKeyhole, Send } from 'lucide-react';
+import type { Copy } from '../../data/translations';
+
+export default function ApplicationForm({ t }: { t: Copy }) {
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const submit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const name = String(f.get('name') || '').trim();
+    const phone = String(f.get('phone') || '').trim();
+    const message = String(f.get('message') || '').trim();
+
+    if (!name || !message || !/^[+0-9 ()-]{7,}$/.test(phone)) {
+      setStatus('error');
+      return;
+    }
+
+    setStatus('success');
+    e.currentTarget.reset();
+  };
+
+  return (
+    <section id="contact" className="section">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="overflow-hidden rounded-[2rem] bg-[#07111f] p-6 text-white shadow-2xl sm:p-10">
+          <div className="grid gap-10 lg:grid-cols-[.75fr_1.25fr] lg:items-center">
+            <div>
+              <span className="section-kicker">{t.form.kicker}</span>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">{t.form.title}</h2>
+              <p className="mt-4 leading-7 text-slate-300">{t.form.text}</p>
+              <div className="mt-6 flex items-center gap-2 text-xs text-slate-400">
+                <LockKeyhole size={14} /> Ваши данные защищены
+              </div>
+            </div>
+
+            <form onSubmit={submit} className="grid gap-5 sm:grid-cols-2">
+              <label className="field">
+                <span className="mb-1 text-sm font-medium text-slate-200">{t.form.name}</span>
+                <input
+                  name="name"
+                  autoComplete="name"
+                  placeholder={t.form.name}
+                  className="min-h-12 w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-base text-white shadow-sm outline-none transition placeholder:text-slate-500 hover:border-white/25 focus:border-[#c8923e] focus:bg-white/[0.09] focus:ring-4 focus:ring-[#c8923e]/10"
+                />
+              </label>
+
+              <label className="field">
+                <span className="mb-1 text-sm font-medium text-slate-200">{t.form.phone}</span>
+                <input
+                  name="phone"
+                  autoComplete="tel"
+                  placeholder="+992 (__) ___-__-__"
+                  className="min-h-12 w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-base text-white shadow-sm outline-none transition placeholder:text-slate-500 hover:border-white/25 focus:border-[#c8923e] focus:bg-white/[0.09] focus:ring-4 focus:ring-[#c8923e]/10"
+                />
+              </label>
+
+              <label className="field sm:col-span-2">
+                <span className="mb-1 text-sm font-medium text-slate-200">{t.form.message}</span>
+                <textarea
+                  name="message"
+                  rows={4}
+                  placeholder={t.form.message}
+                  className="min-h-32 w-full resize-y rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3 text-base leading-6 text-white shadow-sm outline-none transition placeholder:text-slate-500 hover:border-white/25 focus:border-[#c8923e] focus:bg-white/[0.09] focus:ring-4 focus:ring-[#c8923e]/10"
+                />
+              </label>
+
+              <div className="sm:col-span-2 flex flex-wrap items-center justify-between gap-3">
+                <div className="min-h-6 text-sm">
+                  {status === 'success' && (
+                    <span className="flex items-center gap-2 text-emerald-300">
+                      <CheckCircle2 size={16} />
+                      {t.form.success}
+                    </span>
+                  )}
+                  {status === 'error' && <span className="text-red-300">{t.form.error}</span>}
+                </div>
+                <button className="gold-btn" type="submit">
+                  {t.form.send}
+                  <Send size={16} />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
