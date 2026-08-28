@@ -75,8 +75,8 @@ export default function ApplicationForm({ t }: { t: Copy }) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="application-card">
           <div className="application-copy">
-            <span className="section-kicker">{t.form.kicker}</span>
-            <h2>{t.form.title}</h2>
+            <span className="section-kicker !w-auto !h-auto min-h-0 px-3.5 py-2 rounded-full mb-5 inline-flex">{t.form.kicker}</span>
+            <h2 className="!mt-0">{t.form.title}</h2>
             <p>{t.form.text}</p>
             <div className="application-privacy">
               <span className="privacy-icon"><LockKeyhole size={16} /></span>
