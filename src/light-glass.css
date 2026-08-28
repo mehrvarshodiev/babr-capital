@@ -1,4 +1,4 @@
-/* Light mode: replace flat white surfaces with a soft, tinted glass that follows the site's cyan/teal atmosphere. */
+/* Light mode: tinted glass + stronger text contrast for readability. */
 body.light .glass{
   background:linear-gradient(135deg,rgba(224,243,245,.58),rgba(204,232,234,.42) 52%,rgba(190,225,221,.34));
   border-color:rgba(72,118,128,.16);
@@ -16,3 +16,22 @@ body.light .glass-soft{
 body.light .timeline-dot{background:rgba(7,21,28,.92);box-shadow:0 8px 22px rgba(20,72,82,.12)}
 body.light .metric-card,body.light .trust-chip{background:rgba(220,240,241,.42);border-color:rgba(72,118,128,.12)}
 body.light .value-card,body.light .service-card{background:linear-gradient(135deg,rgba(224,243,244,.48),rgba(204,232,232,.30))}
+
+/* Slightly darker text in daytime mode so content stays readable over the glass. */
+body.light{color:#172033}
+body.light .nav-link,body.light .mobile-link{color:#1f2937}
+body.light .nav-link:hover,body.light .mobile-link:hover{color:#0f172a}
+body.light .lang-btn{color:#475569}
+body.light .lang-btn.active{color:#172033}
+body.light .metric-card b{color:#172033}
+body.light .metric-card p{color:#475569}
+body.light .timeline-item h3{color:#111827}
+body.light .timeline-item p{color:#475569}
+body.light .value-card>span{color:#475569}
+body.light .value-card h3{color:#172033}
+body.light .value-card p{color:#475569}
+body.light .service-card h3{color:#172033}
+body.light .service-card p{color:#475569}
+body.light .application-copy p{color:#3f4f63}
+body.light .application-privacy{color:#526174}
+body.light .form-hint{color:#526174}
