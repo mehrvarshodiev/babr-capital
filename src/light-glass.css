@@ -21,8 +21,9 @@ body.light .value-card,body.light .service-card{background:linear-gradient(135de
 body.light{color:#172033}
 body.light .nav-link,body.light .mobile-link{color:#1f2937}
 body.light .nav-link:hover,body.light .mobile-link:hover{color:#0f172a}
-body.light .lang-btn{color:#475569}
-body.light .lang-btn.active{color:#172033}
+body.light .lang-btn{color:#334155}
+body.light .lang-btn.active{color:#0f172a;font-weight:900}
+body.light .language-switcher{border-color:rgba(51,65,85,.10)}
 body.light .metric-card b{color:#172033}
 body.light .metric-card p{color:#475569}
 body.light .timeline-item h3{color:#111827}
