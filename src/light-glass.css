@@ -17,25 +17,25 @@ body.light .timeline-dot{background:rgba(7,21,28,.92);box-shadow:0 8px 22px rgba
 body.light .metric-card,body.light .trust-chip{background:rgba(220,240,241,.42);border-color:rgba(72,118,128,.12)}
 body.light .value-card,body.light .service-card{background:linear-gradient(135deg,rgba(224,243,244,.48),rgba(204,232,232,.30))}
 
-/* Slightly darker text in daytime mode so content stays readable over the glass. */
-body.light{color:#172033}
-body.light .nav-link,body.light .mobile-link{color:#1f2937}
-body.light .nav-link:hover,body.light .mobile-link:hover{color:#0f172a}
-body.light .lang-btn{color:#334155}
-body.light .lang-btn.active{color:#0f172a;font-weight:900}
+/* Light mode text. */
+body.light{color:#000000}
+body.light .nav-link,body.light .mobile-link{color:#000000}
+body.light .nav-link:hover,body.light .mobile-link:hover{color:#000000}
+body.light .lang-btn{color:#000000}
+body.light .lang-btn.active{color:#000000;font-weight:900}
 body.light .language-switcher{border-color:rgba(51,65,85,.10)}
-body.light .metric-card b{color:#172033}
-body.light .metric-card p{color:#475569}
-body.light .timeline-item h3{color:#111827}
-body.light .timeline-item p{color:#475569}
-body.light .value-card>span{color:#475569}
-body.light .value-card h3{color:#172033}
-body.light .value-card p{color:#475569}
-body.light .service-card h3{color:#172033}
-body.light .service-card p{color:#475569}
-body.light .application-copy p{color:#3f4f63}
-body.light .application-privacy{color:#526174}
-body.light .form-hint{color:#526174}
+body.light .metric-card b{color:#000000}
+body.light .metric-card p{color:#000000}
+body.light .timeline-item h3{color:#000000}
+body.light .timeline-item p{color:#000000}
+body.light .value-card>span{color:#000000}
+body.light .value-card h3{color:#000000}
+body.light .value-card p{color:#000000}
+body.light .service-card h3{color:#000000}
+body.light .service-card p{color:#000000}
+body.light .application-copy p{color:#000000}
+body.light .application-privacy{color:#000000}
+body.light .form-hint{color:#000000}
 
 /* Requested light-mode page background. */
-body.light{background:#F0F4F8}
+body.light{background:#eef5f6}
