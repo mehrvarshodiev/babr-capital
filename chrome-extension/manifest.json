@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Babr Capital Scroll Progress",
+  "version": "1.0.0",
+  "description": "Shows a thin horizontal scroll progress indicator at the top edge of webpages.",
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["progress.css"],
+      "run_at": "document_start"
+    }
+  ]
+}
