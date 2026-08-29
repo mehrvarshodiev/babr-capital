@@ -17,8 +17,6 @@ function formatPhone(value: string) {
 }
 
 function isValidTajikPhone(value: string) {
-  // Validate the actual phone digits instead of relying on the exact visual formatting.
-  // This prevents a correctly entered Tajik number from being rejected because of spacing.
   const digits = value.replace(/\D/g, '');
   const localDigits = digits.startsWith('992') ? digits.slice(3) : digits;
   return localDigits.length === 9;
@@ -46,25 +44,15 @@ export default function ApplicationForm({ t }: { t: Copy }) {
       setStatus('error');
       return;
     }
-
     setStatus('idle');
     setIsSubmitting(true);
-
     try {
       const response = await fetch('/api/application', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: values.name.trim(),
-          phone: phone.trim(),
-          message: values.message.trim(),
-        }),
+        body: JSON.stringify({ name: values.name.trim(), phone: phone.trim(), message: values.message.trim() }),
       });
-
-      if (!response.ok) {
-        throw new Error('Application delivery failed');
-      }
-
+      if (!response.ok) throw new Error('Application delivery failed');
       setStatus('success');
       setPhone('');
       setValues({ name: '', message: '' });
@@ -96,8 +84,8 @@ export default function ApplicationForm({ t }: { t: Copy }) {
 
   return (
     <section id="contact" className="section application-section">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="application-card">
+      <div className="mx-auto max-w-7xl w-full px-4 sm:px-6">
+        <div className="application-card w-full">
           <div className="application-copy">
             <span className="section-kicker !w-auto !h-auto min-h-0 px-3.5 py-2 rounded-full mb-5 inline-flex">{t.form.kicker}</span>
             <h2 className="!mt-0">{t.form.title}</h2>
