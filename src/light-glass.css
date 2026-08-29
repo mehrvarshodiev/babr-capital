@@ -36,3 +36,6 @@ body.light .service-card p{color:#475569}
 body.light .application-copy p{color:#3f4f63}
 body.light .application-privacy{color:#526174}
 body.light .form-hint{color:#526174}
+
+/* Requested light-mode page background. */
+body.light{background:#F0F4F8}
