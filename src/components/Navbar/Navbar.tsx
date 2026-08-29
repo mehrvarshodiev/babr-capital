@@ -26,10 +26,21 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
   }, []);
 
   useEffect(() => {
-    let lastY = window.scrollY; let ticking = false;
-    const updateVisibility = () => { const currentY = window.scrollY; const delta = currentY - lastY; if (Math.abs(delta) > 6) { if (currentY <= 24 || delta < 0) setVisible(true); else if (delta > 0) { setVisible(false); setOpen(false); } lastY = currentY; } ticking = false; };
+    let lastY = window.scrollY;
+    let ticking = false;
+    const updateVisibility = () => {
+      const currentY = window.scrollY;
+      const delta = currentY - lastY;
+      if (Math.abs(delta) > 3) {
+        if (currentY <= 24 || delta < 0) setVisible(true);
+        else if (delta > 0 && currentY > 90) { setVisible(false); setOpen(false); }
+        lastY = currentY;
+      }
+      ticking = false;
+    };
     const onScroll = () => { if (!ticking) { window.requestAnimationFrame(updateVisibility); ticking = true; } };
-    window.addEventListener('scroll', onScroll, { passive: true }); return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const activeStyle = {
@@ -42,8 +53,8 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
 
   return (
     <>
-      <style>{`@keyframes navbar-glass-gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}@media(prefers-reduced-motion:reduce){.nav-link{animation:none!important}}`}</style>
-      <header className={`site-navbar fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 ${visible ? 'is-visible' : 'is-hidden'}`} style={{ transform: visible ? 'translateY(0)' : 'translateY(calc(-100% - 18px))', transition: 'transform 320ms cubic-bezier(.22,1,.36,1)' }}>
+      <style>{`@keyframes navbar-glass-gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}@media(prefers-reduced-motion:reduce){.nav-link{animation:none!important}.navbar-reveal{transition:none!important}}`}</style>
+      <header className={`site-navbar navbar-reveal fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 ${visible ? 'is-visible' : 'is-hidden'}`} style={{ transform: visible ? 'translate3d(0,0,0)' : 'translate3d(0,calc(-100% - 18px),0)', opacity: visible ? 1 : 0, transition: 'transform 420ms cubic-bezier(.22,1,.36,1), opacity 260ms ease' }}>
         <nav className="glass nav-shell mx-auto flex max-w-7xl items-center gap-3 rounded-2xl border px-3 py-2.5 sm:px-4 lg:px-5" style={{ background: theme === 'dark' ? 'rgba(7, 24, 36, 0.58)' : 'linear-gradient(135deg, rgba(255,255,255,.82), rgba(231,246,244,.78))', borderColor: theme === 'dark' ? 'rgba(148,206,216,.13)' : 'rgba(15,23,42,.10)', boxShadow: theme === 'dark' ? '0 16px 44px rgba(0,0,0,.16)' : '0 12px 36px rgba(15,23,42,.08)', backdropFilter: 'blur(28px) saturate(155%)', WebkitBackdropFilter: 'blur(28px) saturate(155%)' }}>
           <button onClick={() => go('top')} className="flex shrink-0 items-center gap-2.5 font-extrabold tracking-tight" aria-label="Babr Capital"><span className="brand-mark">B</span><span className="hidden xl:block">BABR <span className="text-cyan-300">CAPITAL</span></span></button>
           <div className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 lg:flex">{links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="nav-link whitespace-nowrap px-2.5 py-2 text-sm xl:px-3" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>)}</div>
