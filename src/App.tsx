@@ -7,6 +7,23 @@ import './animations.css';
 export default function App() {
   useEffect(() => {
     document.documentElement.classList.add('scroll-smooth');
+
+    const progress = document.createElement('div');
+    progress.className = 'babr-scroll-progress';
+    progress.setAttribute('aria-hidden', 'true');
+    document.body.prepend(progress);
+
+    const updateProgress = () => {
+      const scrollTop = window.scrollY;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const percent = scrollable > 0 ? (scrollTop / scrollable) * 100 : 0;
+      progress.style.width = `${Math.min(100, Math.max(0, percent))}%`;
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+
     const revealTargets = document.querySelectorAll('main > section, main > div > section, .glass-hover, .metric-card, .value-card, .service-card, .application-card');
     const motions = ['up', 'left', 'right', 'zoom'];
     revealTargets.forEach((element, index) => {
@@ -22,10 +39,12 @@ export default function App() {
         target.style.setProperty('--my', `${y}%`);
       });
     });
+
     const header = document.querySelector('header');
     const footer = document.querySelector('footer');
     header?.classList.add('motion-header');
     footer?.classList.add('motion-footer', 'scroll-reveal');
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -34,9 +53,14 @@ export default function App() {
         }
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
     revealTargets.forEach((element) => observer.observe(element));
     if (footer) observer.observe(footer);
+
     return () => {
+      window.removeEventListener('scroll', updateProgress);
+      window.removeEventListener('resize', updateProgress);
+      progress.remove();
       observer.disconnect();
       document.documentElement.classList.remove('scroll-smooth');
     };
