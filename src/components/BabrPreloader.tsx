@@ -32,11 +32,6 @@ export default function BabrPreloader({ onComplete }: Props) {
       <div className="babr-preloader__ambient babr-preloader__ambient--one" />
       <div className="babr-preloader__ambient babr-preloader__ambient--two" />
 
-      <div className="babr-preloader__topbar">
-        <span className="babr-preloader__mark">BC</span>
-        <span>2026</span>
-      </div>
-
       <main className="babr-preloader__content">
         <div className="babr-preloader__loading">
           <span className="babr-preloader__dot" />
@@ -47,7 +42,6 @@ export default function BabrPreloader({ onComplete }: Props) {
           <div className="babr-preloader__glow" />
           <div className="babr-preloader__floor" />
 
-          {/* Geometric BC monogram: two interlocking 3D letterforms */}
           <div className="babr-preloader__object babr-preloader__bc-object">
             <div className="babr-preloader__bar babr-preloader__bc-b-vertical"><i /></div>
             <div className="babr-preloader__bar babr-preloader__bc-b-top"><i /></div>
@@ -61,7 +55,11 @@ export default function BabrPreloader({ onComplete }: Props) {
         </div>
 
         <div className="babr-preloader__progress">
-          <strong>{String(progress).padStart(2, '0')}<small>%</small></strong>
+          <div className="babr-preloader__percent">
+            <span>0</span>
+            <strong>{progress}</strong>
+            <span>100</span>
+          </div>
           <div className="babr-preloader__track">
             <div className="babr-preloader__fill" style={{ width: `${progress}%` }} />
             <span className="babr-preloader__indicator" style={{ left: `${progress}%` }} />
