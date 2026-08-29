@@ -17,37 +17,17 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
   };
 
   useEffect(() => {
-    const sections = links
-      .map(([id]) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
-
+    const sections = links.map(([id]) => document.getElementById(id)).filter((section): section is HTMLElement => Boolean(section));
     if (!sections.length) return;
-
     const observer = new IntersectionObserver((entries) => {
-      const visibleEntries = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
+      const visibleEntries = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
       if (visibleEntries[0]) setActive(visibleEntries[0].target.id);
-    }, {
-      root: null,
-      rootMargin: '-18% 0px -58% 0px',
-      threshold: [0.15, 0.35, 0.55, 0.75],
-    });
-
+    }, { root: null, rootMargin: '-18% 0px -58% 0px', threshold: [0.15, 0.35, 0.55, 0.75] });
     sections.forEach((section) => observer.observe(section));
-
-    const syncFromScroll = () => {
-      if (window.scrollY < 120) setActive('about');
-    };
-
+    const syncFromScroll = () => { if (window.scrollY < 120) setActive('about'); };
     syncFromScroll();
     window.addEventListener('scroll', syncFromScroll, { passive: true });
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', syncFromScroll);
-    };
+    return () => { observer.disconnect(); window.removeEventListener('scroll', syncFromScroll); };
   }, []);
 
   useEffect(() => {
@@ -63,68 +43,34 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
       }
       ticking = false;
     };
-    const onScroll = () => {
-      if (!ticking) { window.requestAnimationFrame(updateVisibility); ticking = true; }
-    };
+    const onScroll = () => { if (!ticking) { window.requestAnimationFrame(updateVisibility); ticking = true; } };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const activeStyle = {
-    color: theme === 'dark' ? '#ecfeff' : '#ffffff',
-    background: 'linear-gradient(135deg, #10b981 0%, #06b6d4 52%, #2563eb 100%)',
+    color: '#ffffff',
+    background: 'linear-gradient(115deg, #10b981 0%, #06b6d4 25%, #2563eb 50%, #06b6d4 75%, #10b981 100%)',
+    backgroundSize: '240% 100%',
+    animation: 'navbar-neon-gradient 2.8s linear infinite',
     boxShadow: theme === 'dark'
-      ? '0 0 24px rgba(34,211,238,.34), 0 0 46px rgba(16,185,129,.18), inset 0 1px 0 rgba(255,255,255,.30)'
-      : '0 7px 22px rgba(8,145,178,.28), 0 0 28px rgba(16,185,129,.16), inset 0 1px 0 rgba(255,255,255,.38)',
-    border: '1px solid rgba(255,255,255,.24)',
-    textShadow: '0 1px 8px rgba(0,0,0,.18)',
+      ? '0 0 18px rgba(34,211,238,.48), 0 0 38px rgba(16,185,129,.28), inset 0 1px 0 rgba(255,255,255,.35)'
+      : '0 7px 22px rgba(8,145,178,.30), 0 0 30px rgba(16,185,129,.22), inset 0 1px 0 rgba(255,255,255,.45)',
+    border: '1px solid rgba(255,255,255,.30)',
+    textShadow: '0 1px 10px rgba(0,0,0,.22)',
   };
 
   return (
-    <header
-      className={`site-navbar fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 ${visible ? 'is-visible' : 'is-hidden'}`}
-      style={{ transform: visible ? 'translateY(0)' : 'translateY(calc(-100% - 18px))', transition: 'transform 320ms cubic-bezier(.22,1,.36,1)' }}
-    >
-      <nav
-        className="glass nav-shell mx-auto flex max-w-7xl items-center justify-between rounded-2xl border px-4 py-3 sm:px-5"
-        style={{
-          opacity: 1,
-          background: theme === 'dark'
-            ? 'rgba(7, 24, 36, 0.58)'
-            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(231, 246, 244, 0.78))',
-          borderColor: theme === 'dark' ? 'rgba(148, 206, 216, 0.13)' : 'rgba(15, 23, 42, 0.10)',
-          boxShadow: theme === 'dark'
-            ? '0 16px 44px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.045)'
-            : '0 12px 36px rgba(15,23,42,.08)',
-          backdropFilter: 'blur(28px) saturate(155%)',
-          WebkitBackdropFilter: 'blur(28px) saturate(155%)'
-        }}
-      >
-        <button onClick={() => go('top')} className="flex items-center gap-3 font-extrabold tracking-tight" aria-label="Babr Capital">
-          <span className="brand-mark">B</span>
-          <span className="hidden sm:block">BABR <span className="text-cyan-300">CAPITAL</span></span>
-        </button>
-        <div className="hidden items-center gap-1 lg:flex">
-          {links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="nav-link" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>)}
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="language-switcher glass-soft hidden md:flex">
-            <button className={`lang-btn ${language === 'tg' ? 'active' : ''}`} onClick={() => change('tg')}>TJ</button>
-            <button className={`lang-btn ${language === 'ru' ? 'active' : ''}`} onClick={() => change('ru')}>RU</button>
-          </div>
-          <button onClick={toggle} className="icon-btn" aria-label="Theme">{theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}</button>
-          <button className="icon-btn lg:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Menu">{open ? <X size={19} /> : <Menu size={19} />}</button>
-        </div>
-      </nav>
-      {open && (
-        <div className="glass mx-auto mt-2 max-w-7xl rounded-2xl border border-white/10 bg-slate-950/90 p-3 shadow-2xl backdrop-blur-xl lg:hidden">
-          <div className="flex flex-col gap-1">
-            {links.map(([id, label]) => (
-              <button key={id} onClick={() => go(id)} className="mobile-link w-full text-left text-slate-200 transition-colors hover:text-white" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>
-            ))}
-          </div>
-        </div>
-      )}
-    </header>
+    <>
+      <style>{`@keyframes navbar-neon-gradient{0%{background-position:0% 50%}100%{background-position:240% 50%}}@media(prefers-reduced-motion:reduce){.nav-link{animation:none!important}}`}</style>
+      <header className={`site-navbar fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 ${visible ? 'is-visible' : 'is-hidden'}`} style={{ transform: visible ? 'translateY(0)' : 'translateY(calc(-100% - 18px))', transition: 'transform 320ms cubic-bezier(.22,1,.36,1)' }}>
+        <nav className="glass nav-shell mx-auto flex max-w-7xl items-center justify-between rounded-2xl border px-4 py-3 sm:px-5" style={{ opacity: 1, background: theme === 'dark' ? 'rgba(7, 24, 36, 0.58)' : 'linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(231, 246, 244, 0.78))', borderColor: theme === 'dark' ? 'rgba(148, 206, 216, 0.13)' : 'rgba(15, 23, 42, 0.10)', boxShadow: theme === 'dark' ? '0 16px 44px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.045)' : '0 12px 36px rgba(15,23,42,.08)', backdropFilter: 'blur(28px) saturate(155%)', WebkitBackdropFilter: 'blur(28px) saturate(155%)' }}>
+          <button onClick={() => go('top')} className="flex items-center gap-3 font-extrabold tracking-tight" aria-label="Babr Capital"><span className="brand-mark">B</span><span className="hidden sm:block">BABR <span className="text-cyan-300">CAPITAL</span></span></button>
+          <div className="hidden items-center gap-1 lg:flex">{links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="nav-link" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>)}</div>
+          <div className="flex items-center gap-2"><div className="language-switcher glass-soft hidden md:flex"><button className={`lang-btn ${language === 'tg' ? 'active' : ''}`} onClick={() => change('tg')}>TJ</button><button className={`lang-btn ${language === 'ru' ? 'active' : ''}`} onClick={() => change('ru')}>RU</button></div><button onClick={toggle} className="icon-btn" aria-label="Theme">{theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}</button><button className="icon-btn lg:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Menu">{open ? <X size={19} /> : <Menu size={19} />}</button></div>
+        </nav>
+        {open && <div className="glass mx-auto mt-2 max-w-7xl rounded-2xl border border-white/10 bg-slate-950/90 p-3 shadow-2xl backdrop-blur-xl lg:hidden"><div className="flex flex-col gap-1">{links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="mobile-link w-full text-left text-slate-200 transition-colors hover:text-white" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>)}</div></div>}
+      </header>
+    </>
   );
 }
