@@ -1,0 +1,10 @@
+/* Modern motion layer */
+.scroll-reveal{opacity:0;transform:translateY(28px) scale(.985);filter:blur(3px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1),filter .7s ease;transition-delay:calc(var(--reveal-delay,0) * 90ms)}
+.scroll-reveal[data-reveal-delay="1"]{--reveal-delay:1}.scroll-reveal[data-reveal-delay="2"]{--reveal-delay:2}.scroll-reveal[data-reveal-delay="3"]{--reveal-delay:3}
+.scroll-reveal.is-visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+.page-glow{animation:floatGlow 14s ease-in-out infinite alternate;will-change:transform}.glow-two{animation-delay:-5s}.glow-three{animation-delay:-9s}
+@keyframes floatGlow{0%{transform:translate3d(-18px,-10px,0) scale(1)}50%{transform:translate3d(20px,18px,0) scale(1.08)}100%{transform:translate3d(-8px,30px,0) scale(.96)}}
+.glass-hover,.value-card,.service-card,.metric-card{will-change:transform}.glass-hover:before,.value-card:before,.service-card:before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(103,232,249,.13),transparent 32%);opacity:0;transition:opacity .35s ease;pointer-events:none}.glass-hover:hover:before,.value-card:hover:before,.service-card:hover:before{opacity:1}
+.glass-hover:hover,.value-card:hover,.service-card:hover{transform:translateY(-7px) scale(1.008)}
+.application-card{transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s ease}.application-card:hover{transform:translateY(-3px)}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.scroll-reveal{opacity:1;transform:none;filter:none}}
