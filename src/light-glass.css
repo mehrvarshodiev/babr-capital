@@ -36,6 +36,8 @@ body.light .service-card p{color:#000000}
 body.light .application-copy p{color:#000000}
 body.light .application-privacy{color:#000000}
 body.light .form-hint{color:#000000}
+body.light .trust-chip{color:#000000 !important}
+body.light .hero-subtitle{color:#000000 !important}
 
 /* Requested light-mode page background. */
 body.light{background:#eef5f6}
