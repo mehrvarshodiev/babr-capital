@@ -84,7 +84,7 @@ export default function ApplicationForm({ t }: { t: Copy }) {
 
   return (
     <section id="contact" className="section application-section">
-      <div className="mx-auto max-w-7xl w-full px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl w-full">
         <div className="application-card w-full">
           <div className="application-copy">
             <span className="section-kicker !w-auto !h-auto min-h-0 px-3.5 py-2 rounded-full mb-5 inline-flex">{t.form.kicker}</span>
