@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import WhatsAppButton from './components/WhatsAppButton/WhatsAppButton';
+import BabrPreloader from './components/BabrPreloader';
 import './animations.css';
 
 export default function App() {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     document.documentElement.classList.add('scroll-smooth');
 
@@ -66,5 +69,11 @@ export default function App() {
     };
   }, []);
 
-  return <><Routes><Route path="*" element={<Home />} /></Routes><WhatsAppButton /></>;
+  return (
+    <>
+      {loading && <BabrPreloader onComplete={() => setLoading(false)} />}
+      <Routes><Route path="*" element={<Home />} /></Routes>
+      <WhatsAppButton />
+    </>
+  );
 }
