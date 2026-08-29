@@ -42,13 +42,13 @@ export default function BabrPreloader({ onComplete }: Props) {
           <div className="babr-preloader__glow" />
           <div className="babr-preloader__floor" />
 
-          {/* Abstract 3D geometry — no BC lettering */}
-          <div className="babr-preloader__object babr-preloader__abstract-object">
-            <div className="babr-preloader__bar abstract-bar-1"><i /></div>
-            <div className="babr-preloader__bar abstract-bar-2"><i /></div>
-            <div className="babr-preloader__bar abstract-bar-3"><i /></div>
-            <div className="babr-preloader__bar abstract-bar-4"><i /></div>
-            <div className="babr-preloader__bar abstract-bar-5"><i /></div>
+          {/* Futuristic 3D ring — intentionally no BC lettering */}
+          <div className="babr-preloader__ring-object">
+            <div className="babr-preloader__ring">
+              <div className="babr-preloader__ring-inner" />
+              <div className="babr-preloader__ring-highlight" />
+            </div>
+            <div className="babr-preloader__ring-core" />
           </div>
         </div>
 
