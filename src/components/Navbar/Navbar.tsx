@@ -6,9 +6,49 @@ import { useTheme } from '../../hooks/useTheme';
 export default function Navbar({ t, language, change }: { t: Copy; language: Language; change: (l: Language) => void }) {
   const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState(true);
+  const [active, setActive] = useState('about');
   const { theme, toggle } = useTheme();
   const links = [['about', t.nav.about], ['mission', t.nav.mission], ['values', t.nav.values], ['services', t.nav.services], ['contact', t.nav.contact]] as const;
-  const go = (id: string) => { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); setOpen(false); };
+
+  const go = (id: string) => {
+    setActive(id);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const sections = links
+      .map(([id]) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      const visibleEntries = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleEntries[0]) setActive(visibleEntries[0].target.id);
+    }, {
+      root: null,
+      rootMargin: '-18% 0px -58% 0px',
+      threshold: [0.15, 0.35, 0.55, 0.75],
+    });
+
+    sections.forEach((section) => observer.observe(section));
+
+    const syncFromScroll = () => {
+      if (window.scrollY < 120) setActive('about');
+    };
+
+    syncFromScroll();
+    window.addEventListener('scroll', syncFromScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', syncFromScroll);
+    };
+  }, []);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -29,6 +69,16 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const activeStyle = {
+    color: theme === 'dark' ? '#67e8f9' : '#0f766e',
+    background: theme === 'dark'
+      ? 'linear-gradient(135deg, rgba(34,211,238,.14), rgba(52,211,153,.10))'
+      : 'linear-gradient(135deg, rgba(13,148,136,.12), rgba(8,145,178,.10))',
+    boxShadow: theme === 'dark'
+      ? 'inset 0 0 0 1px rgba(103,232,249,.16), 0 0 18px rgba(34,211,238,.08)'
+      : 'inset 0 0 0 1px rgba(13,148,136,.16), 0 4px 16px rgba(8,145,178,.08)',
+  };
 
   return (
     <header
@@ -55,7 +105,7 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
           <span className="hidden sm:block">BABR <span className="text-cyan-300">CAPITAL</span></span>
         </button>
         <div className="hidden items-center gap-1 lg:flex">
-          {links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="nav-link">{label}</button>)}
+          {links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="nav-link" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>)}
         </div>
         <div className="flex items-center gap-2">
           <div className="language-switcher glass-soft hidden md:flex">
@@ -70,7 +120,7 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
         <div className="glass mx-auto mt-2 max-w-7xl rounded-2xl border border-white/10 bg-slate-950/90 p-3 shadow-2xl backdrop-blur-xl lg:hidden">
           <div className="flex flex-col gap-1">
             {links.map(([id, label]) => (
-              <button key={id} onClick={() => go(id)} className="mobile-link w-full text-left text-slate-200 transition-colors hover:text-white">{label}</button>
+              <button key={id} onClick={() => go(id)} className="mobile-link w-full text-left text-slate-200 transition-colors hover:text-white" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>
             ))}
           </div>
         </div>
