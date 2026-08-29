@@ -46,12 +46,17 @@ export default function BabrPreloader({ onComplete }: Props) {
         <div className="babr-preloader__scene" aria-hidden="true">
           <div className="babr-preloader__glow" />
           <div className="babr-preloader__floor" />
-          <div className="babr-preloader__object">
-            <div className="babr-preloader__bar babr-preloader__bar--1"><i /></div>
-            <div className="babr-preloader__bar babr-preloader__bar--2"><i /></div>
-            <div className="babr-preloader__bar babr-preloader__bar--3"><i /></div>
-            <div className="babr-preloader__bar babr-preloader__bar--4"><i /></div>
-            <div className="babr-preloader__bar babr-preloader__bar--5"><i /></div>
+
+          {/* Geometric BC monogram: two interlocking 3D letterforms */}
+          <div className="babr-preloader__object babr-preloader__bc-object">
+            <div className="babr-preloader__bar babr-preloader__bc-b-vertical"><i /></div>
+            <div className="babr-preloader__bar babr-preloader__bc-b-top"><i /></div>
+            <div className="babr-preloader__bar babr-preloader__bc-b-middle"><i /></div>
+            <div className="babr-preloader__bar babr-preloader__bc-b-bottom"><i /></div>
+            <div className="babr-preloader__bar babr-preloader__bc-c-top"><i /></div>
+            <div className="babr-preloader__bar babr-preloader__bc-c-vertical"><i /></div>
+            <div className="babr-preloader__bar babr-preloader__bc-c-bottom"><i /></div>
+            <div className="babr-preloader__bar babr-preloader__bc-c-cut"><i /></div>
           </div>
         </div>
 
