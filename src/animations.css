@@ -1,10 +1,27 @@
-/* Modern motion layer */
-.scroll-reveal{opacity:0;transform:translateY(28px) scale(.985);filter:blur(3px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1),filter .7s ease;transition-delay:calc(var(--reveal-delay,0) * 90ms)}
-.scroll-reveal[data-reveal-delay="1"]{--reveal-delay:1}.scroll-reveal[data-reveal-delay="2"]{--reveal-delay:2}.scroll-reveal[data-reveal-delay="3"]{--reveal-delay:3}
-.scroll-reveal.is-visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
-.page-glow{animation:floatGlow 14s ease-in-out infinite alternate;will-change:transform}.glow-two{animation-delay:-5s}.glow-three{animation-delay:-9s}
-@keyframes floatGlow{0%{transform:translate3d(-18px,-10px,0) scale(1)}50%{transform:translate3d(20px,18px,0) scale(1.08)}100%{transform:translate3d(-8px,30px,0) scale(.96)}}
-.glass-hover,.value-card,.service-card,.metric-card{will-change:transform}.glass-hover:before,.value-card:before,.service-card:before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(103,232,249,.13),transparent 32%);opacity:0;transition:opacity .35s ease;pointer-events:none}.glass-hover:hover:before,.value-card:hover:before,.service-card:hover:before{opacity:1}
-.glass-hover:hover,.value-card:hover,.service-card:hover{transform:translateY(-7px) scale(1.008)}
-.application-card{transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s ease}.application-card:hover{transform:translateY(-3px)}
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.scroll-reveal{opacity:1;transform:none;filter:none}}
+/* Babr Capital — premium motion system */
+html{scroll-behavior:smooth}
+.scroll-reveal{opacity:0;transform:translate3d(0,32px,0) scale(.985);filter:blur(4px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),filter .8s ease;transition-delay:calc(var(--reveal-delay,0) * 90ms);will-change:transform,opacity,filter}
+.scroll-reveal.is-visible{opacity:1;transform:none;filter:none}
+.scroll-reveal[data-motion="left"]{transform:translate3d(-42px,0,0) scale(.98)}
+.scroll-reveal[data-motion="right"]{transform:translate3d(42px,0,0) scale(.98)}
+.scroll-reveal[data-motion="zoom"]{transform:translate3d(0,18px,0) scale(.9)}
+.scroll-reveal[data-motion="up"]{transform:translate3d(0,46px,0)}
+.scroll-reveal[data-motion="left"].is-visible,.scroll-reveal[data-motion="right"].is-visible,.scroll-reveal[data-motion="zoom"].is-visible,.scroll-reveal[data-motion="up"].is-visible{transform:none}
+.page-glow{animation:floatGlow 16s ease-in-out infinite alternate;will-change:transform}.glow-two{animation-delay:-5s}.glow-three{animation-delay:-10s}
+@keyframes floatGlow{0%{transform:translate3d(-22px,-12px,0) scale(1)}50%{transform:translate3d(26px,22px,0) scale(1.08)}100%{transform:translate3d(-10px,34px,0) scale(.96)}}
+.glass-hover,.value-card,.service-card,.metric-card,.application-card{position:relative;will-change:transform}
+.glass-hover:before,.value-card:before,.service-card:before,.metric-card:before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(103,232,249,.16),transparent 34%);opacity:0;transition:opacity .45s ease;pointer-events:none}
+.glass-hover:hover:before,.value-card:hover:before,.service-card:hover:before,.metric-card:hover:before{opacity:1}
+.glass-hover,.value-card,.service-card,.metric-card{transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s ease,border-color .4s ease}
+.glass-hover:hover,.value-card:hover,.service-card:hover,.metric-card:hover{transform:translateY(-8px) scale(1.012)}
+.icon-bounce{transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.group:hover .icon-bounce{transform:translateY(-3px) rotate(-3deg) scale(1.06)}
+.application-card{transition:transform .55s cubic-bezier(.22,1,.36,1),box-shadow .55s ease}.application-card:hover{transform:translateY(-4px)}
+.whatsapp-float{animation:whatsappPulse 3s ease-in-out infinite;will-change:transform,box-shadow}
+@keyframes whatsappPulse{0%,100%{transform:scale(1);box-shadow:0 14px 45px rgba(37,211,102,.45),0 0 25px rgba(37,211,102,.25)}50%{transform:scale(1.045);box-shadow:0 18px 55px rgba(37,211,102,.58),0 0 42px rgba(37,211,102,.42)}}
+.whatsapp-ring{animation:whatsappRing 2.8s ease-out infinite}.whatsapp-ring.delay{animation-delay:1.4s}
+@keyframes whatsappRing{0%{transform:scale(.82);opacity:.65}70%,100%{transform:scale(1.55);opacity:0}}
+.motion-header{animation:headerIn .9s cubic-bezier(.22,1,.36,1) both}.motion-footer{animation:footerIn 1s cubic-bezier(.22,1,.36,1) both}
+@keyframes headerIn{from{opacity:0;transform:translateY(-18px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes footerIn{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.scroll-reveal{opacity:1;transform:none;filter:none}}
