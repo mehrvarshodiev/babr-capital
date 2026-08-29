@@ -59,7 +59,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const { data, error } = await supabase
       .from('applications')
       .select('name, phone, message, created_at')
-      .order('created_at', { ascending: false })
+      .order('created_at', { ascending: true })
       .limit(10);
 
     if (error) {
