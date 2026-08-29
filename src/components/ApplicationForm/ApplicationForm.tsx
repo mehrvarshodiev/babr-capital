@@ -17,7 +17,11 @@ function formatPhone(value: string) {
 }
 
 function isValidTajikPhone(value: string) {
-  return /^\+992 \(\d{2}\) \d{3}-\d{2}-\d{2}$/.test(value);
+  // Validate the actual phone digits instead of relying on the exact visual formatting.
+  // This prevents a correctly entered Tajik number from being rejected because of spacing.
+  const digits = value.replace(/\D/g, '');
+  const localDigits = digits.startsWith('992') ? digits.slice(3) : digits;
+  return localDigits.length === 9;
 }
 
 export default function ApplicationForm({ t }: { t: Copy }) {
