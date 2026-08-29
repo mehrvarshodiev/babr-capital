@@ -48,12 +48,27 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
     border: '1px solid rgba(34,211,238,.18)', backdropFilter: 'blur(18px) saturate(145%)', WebkitBackdropFilter: 'blur(18px) saturate(145%)',
   };
 
+  const logoStyle = {
+    fontFamily: 'Montserrat, Inter, system-ui, sans-serif',
+    fontWeight: 900,
+    fontSize: '32px',
+    lineHeight: 1,
+    letterSpacing: '-3px',
+    paddingRight: '2px',
+    background: 'linear-gradient(135deg, #00e5ff 0%, #22d3ee 38%, #00ff88 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    textShadow: theme === 'dark' ? '0 0 7px rgba(0,229,255,.95), 0 0 18px rgba(0,255,136,.7), 0 0 32px rgba(34,211,238,.45)' : '0 0 6px rgba(0,180,200,.45), 0 0 15px rgba(0,220,150,.28)',
+    filter: 'drop-shadow(0 0 5px rgba(0,229,255,.35))',
+    transition: 'filter 240ms ease, transform 240ms ease',
+  };
+
   return (
     <>
-      <style>{`@keyframes navbar-glass-gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}@media(prefers-reduced-motion:reduce){.nav-link{animation:none!important}.navbar-reveal{transition:none!important}}@media(min-width:768px){.navbar-desktop-links{display:flex!important}.navbar-menu-button{display:none!important}.navbar-mobile-menu{display:none!important}}@media(max-width:767px){.navbar-desktop-links{display:none!important}.navbar-menu-button{display:grid!important}}`}</style>
+      <style>{`@keyframes navbar-glass-gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}@media(prefers-reduced-motion:reduce){.nav-link{animation:none!important}.navbar-reveal{transition:none!important}}@media(min-width:768px){.navbar-desktop-links{display:flex!important}.navbar-menu-button{display:none!important}.navbar-mobile-menu{display:none!important}}@media(max-width:767px){.navbar-desktop-links{display:none!important}.navbar-menu-button{display:grid!important}}@media(max-width:767px){.brand-logo-premium{font-size:28px!important;letter-spacing:-2.6px!important}}`}</style>
       <header className={`site-navbar navbar-reveal fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 ${visible ? 'is-visible' : 'is-hidden'}`} style={{ transform: visible ? 'translate3d(0,0,0)' : 'translate3d(0,calc(-100% - 18px),0)', opacity: visible ? 1 : 0, transition: 'transform 420ms cubic-bezier(.22,1,.36,1), opacity 260ms ease' }}>
         <nav className="glass nav-shell mx-auto flex max-w-7xl items-center gap-3 rounded-2xl border px-3 py-2.5 sm:px-4 lg:px-5" style={{ background: theme === 'dark' ? 'rgba(7, 24, 36, 0.58)' : 'linear-gradient(135deg, rgba(255,255,255,.82), rgba(231,246,244,.78))', borderColor: theme === 'dark' ? 'rgba(148,206,216,.13)' : 'rgba(15,23,42,.10)', boxShadow: theme === 'dark' ? '0 16px 44px rgba(0,0,0,.16)' : '0 12px 36px rgba(15,23,42,.08)', backdropFilter: 'blur(28px) saturate(155%)', WebkitBackdropFilter: 'blur(28px) saturate(155%)' }}>
-          <button onClick={() => go('top')} className="flex shrink-0 items-center gap-2.5 font-extrabold tracking-tight" aria-label="Babr Capital"><span className="brand-mark">B</span><span className="hidden xl:block">BABR <span className="text-cyan-300">CAPITAL</span></span></button>
+          <button onClick={() => go('top')} className="flex shrink-0 items-center gap-2.5 font-extrabold tracking-tight" aria-label="Babr Capital"><span className="brand-mark brand-logo-premium" style={logoStyle}>BC</span><span className="hidden xl:block">BABR <span className="text-cyan-300">CAPITAL</span></span></button>
           <div className="navbar-desktop-links min-w-0 flex-1 items-center justify-center gap-0.5">{links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="nav-link whitespace-nowrap px-2 py-2 text-xs xl:px-3 xl:text-sm" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>)}</div>
           <div className="ml-auto flex shrink-0 items-center gap-1.5"><div className="language-switcher glass-soft hidden md:flex"><button className={`lang-btn ${language === 'tg' ? 'active' : ''}`} onClick={() => change('tg')}>TJ</button><button className={`lang-btn ${language === 'ru' ? 'active' : ''}`} onClick={() => change('ru')}>RU</button></div><button onClick={toggle} className="icon-btn" aria-label="Theme">{theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}</button><button className="navbar-menu-button icon-btn lg:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Menu">{open ? <X size={19} /> : <Menu size={19} />}</button></div>
         </nav>
