@@ -1,14 +1,15 @@
 /* Babr Capital — premium motion system */
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{overflow-x:clip}
 .scroll-reveal{opacity:0;transform:translate3d(0,32px,0) scale(.985);filter:blur(4px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1),filter .8s ease;transition-delay:calc(var(--reveal-delay,0) * 90ms);will-change:transform,opacity,filter}
 .scroll-reveal.is-visible{opacity:1;transform:none;filter:none}
-.scroll-reveal[data-motion="left"]{transform:translate3d(-42px,0,0) scale(.98)}
-.scroll-reveal[data-motion="right"]{transform:translate3d(42px,0,0) scale(.98)}
-.scroll-reveal[data-motion="zoom"]{transform:translate3d(0,18px,0) scale(.9)}
-.scroll-reveal[data-motion="up"]{transform:translate3d(0,46px,0)}
+.scroll-reveal[data-motion="left"]{transform:translate3d(-24px,0,0) scale(.98)}
+.scroll-reveal[data-motion="right"]{transform:translate3d(24px,0,0) scale(.98)}
+.scroll-reveal[data-motion="zoom"]{transform:translate3d(0,18px,0) scale(.96)}
+.scroll-reveal[data-motion="up"]{transform:translate3d(0,32px,0)}
 .scroll-reveal[data-motion="left"].is-visible,.scroll-reveal[data-motion="right"].is-visible,.scroll-reveal[data-motion="zoom"].is-visible,.scroll-reveal[data-motion="up"].is-visible{transform:none}
 .page-glow{animation:floatGlow 16s ease-in-out infinite alternate;will-change:transform}.glow-two{animation-delay:-5s}.glow-three{animation-delay:-10s}
-@keyframes floatGlow{0%{transform:translate3d(-22px,-12px,0) scale(1)}50%{transform:translate3d(26px,22px,0) scale(1.08)}100%{transform:translate3d(-10px,34px,0) scale(.96)}}
+@keyframes floatGlow{0%{transform:translate3d(-12px,-8px,0) scale(1)}50%{transform:translate3d(14px,14px,0) scale(1.04)}100%{transform:translate3d(-8px,20px,0) scale(.98)}}
 .glass-hover,.value-card,.service-card,.metric-card,.application-card{position:relative;will-change:transform}
 .glass-hover:before,.value-card:before,.service-card:before,.metric-card:before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(103,232,249,.16),transparent 34%);opacity:0;transition:opacity .45s ease;pointer-events:none}
 .glass-hover:hover:before,.value-card:hover:before,.service-card:hover:before,.metric-card:hover:before{opacity:1}
