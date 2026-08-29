@@ -10,15 +10,16 @@ export default function App() {
     const revealTargets = document.querySelectorAll('main > section, main > div > section, .glass-hover, .metric-card, .value-card, .service-card, .application-card');
     const motions = ['up', 'left', 'right', 'zoom'];
     revealTargets.forEach((element, index) => {
-      element.classList.add('scroll-reveal');
-      element.setAttribute('data-reveal-delay', String(index % 4));
-      element.setAttribute('data-motion', motions[index % motions.length]);
-      element.addEventListener('pointermove', (event) => {
-        const rect = element.getBoundingClientRect();
+      const target = element as HTMLElement;
+      target.classList.add('scroll-reveal');
+      target.setAttribute('data-reveal-delay', String(index % 4));
+      target.setAttribute('data-motion', motions[index % motions.length]);
+      target.addEventListener('pointermove', (event: PointerEvent) => {
+        const rect = target.getBoundingClientRect();
         const x = ((event.clientX - rect.left) / rect.width) * 100;
         const y = ((event.clientY - rect.top) / rect.height) * 100;
-        element.style.setProperty('--mx', `${x}%`);
-        element.style.setProperty('--my', `${y}%`);
+        target.style.setProperty('--mx', `${x}%`);
+        target.style.setProperty('--my', `${y}%`);
       });
     });
     const header = document.querySelector('header');
