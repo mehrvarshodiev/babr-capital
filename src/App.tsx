@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import WhatsAppButton from './components/WhatsAppButton/WhatsAppButton';
+import './animations.css';
 
 export default function App() {
   useEffect(() => {
