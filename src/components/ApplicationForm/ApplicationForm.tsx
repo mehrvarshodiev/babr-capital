@@ -34,7 +34,7 @@ export default function ApplicationForm({ t }: { t: Copy }) {
     message: values.message.trim().length >= 5,
   };
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmitting) return;
     setTouched({ name: true, phone: true, message: true });
@@ -42,16 +42,36 @@ export default function ApplicationForm({ t }: { t: Copy }) {
       setStatus('error');
       return;
     }
+
     setStatus('idle');
     setIsSubmitting(true);
-    window.setTimeout(() => {
-      setIsSubmitting(false);
+
+    try {
+      const response = await fetch('/api/application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          phone: phone.trim(),
+          message: values.message.trim(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Application delivery failed');
+      }
+
       setStatus('success');
       setPhone('');
       setValues({ name: '', message: '' });
       setTouched({ name: false, phone: false, message: false });
       setFocused(null);
-    }, 900);
+    } catch (error) {
+      console.error('Application submission failed:', error);
+      setStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const updateValue = (field: 'name' | 'message', value: string) => {
