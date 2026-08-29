@@ -71,13 +71,13 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
   }, []);
 
   const activeStyle = {
-    color: theme === 'dark' ? '#67e8f9' : '#0f766e',
-    background: theme === 'dark'
-      ? 'linear-gradient(135deg, rgba(34,211,238,.14), rgba(52,211,153,.10))'
-      : 'linear-gradient(135deg, rgba(13,148,136,.12), rgba(8,145,178,.10))',
+    color: theme === 'dark' ? '#ecfeff' : '#ffffff',
+    background: 'linear-gradient(135deg, #10b981 0%, #06b6d4 52%, #2563eb 100%)',
     boxShadow: theme === 'dark'
-      ? 'inset 0 0 0 1px rgba(103,232,249,.16), 0 0 18px rgba(34,211,238,.08)'
-      : 'inset 0 0 0 1px rgba(13,148,136,.16), 0 4px 16px rgba(8,145,178,.08)',
+      ? '0 0 24px rgba(34,211,238,.34), 0 0 46px rgba(16,185,129,.18), inset 0 1px 0 rgba(255,255,255,.30)'
+      : '0 7px 22px rgba(8,145,178,.28), 0 0 28px rgba(16,185,129,.16), inset 0 1px 0 rgba(255,255,255,.38)',
+    border: '1px solid rgba(255,255,255,.24)',
+    textShadow: '0 1px 8px rgba(0,0,0,.18)',
   };
 
   return (
