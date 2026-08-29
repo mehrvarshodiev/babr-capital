@@ -34,23 +34,20 @@ export default function Navbar({ t, language, change }: { t: Copy; language: Lan
 
   const activeStyle = {
     color: theme === 'dark' ? '#eaffff' : '#075e68',
-    background: theme === 'dark' ? 'linear-gradient(120deg, rgba(16,185,129,.18), rgba(6,182,212,.16), rgba(37,99,235,.14))' : 'linear-gradient(120deg, rgba(16,185,129,.13), rgba(6,182,212,.12), rgba(37,99,235,.10))',
-    backgroundSize: '220% 100%',
-    animation: 'navbar-glass-gradient 4s ease-in-out infinite',
-    boxShadow: theme === 'dark' ? '0 0 14px rgba(34,211,238,.20), 0 0 24px rgba(16,185,129,.10), inset 0 1px 0 rgba(255,255,255,.14)' : '0 4px 16px rgba(8,145,178,.13), 0 0 18px rgba(16,185,129,.08), inset 0 1px 0 rgba(255,255,255,.55)',
-    border: '1px solid rgba(34,211,238,.22)',
-    backdropFilter: 'blur(18px) saturate(145%)',
-    WebkitBackdropFilter: 'blur(18px) saturate(145%)',
+    background: theme === 'dark' ? 'linear-gradient(120deg, rgba(16,185,129,.10), rgba(6,182,212,.09), rgba(37,99,235,.08))' : 'linear-gradient(120deg, rgba(16,185,129,.07), rgba(6,182,212,.065), rgba(37,99,235,.055))',
+    backgroundSize: '220% 100%', animation: 'navbar-glass-gradient 4s ease-in-out infinite',
+    boxShadow: theme === 'dark' ? '0 0 12px rgba(34,211,238,.14), inset 0 1px 0 rgba(255,255,255,.12)' : '0 3px 12px rgba(8,145,178,.09), inset 0 1px 0 rgba(255,255,255,.48)',
+    border: '1px solid rgba(34,211,238,.18)', backdropFilter: 'blur(18px) saturate(145%)', WebkitBackdropFilter: 'blur(18px) saturate(145%)',
   };
 
   return (
     <>
       <style>{`@keyframes navbar-glass-gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}@media(prefers-reduced-motion:reduce){.nav-link{animation:none!important}}`}</style>
       <header className={`site-navbar fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 ${visible ? 'is-visible' : 'is-hidden'}`} style={{ transform: visible ? 'translateY(0)' : 'translateY(calc(-100% - 18px))', transition: 'transform 320ms cubic-bezier(.22,1,.36,1)' }}>
-        <nav className="glass nav-shell mx-auto flex max-w-7xl items-center justify-between rounded-2xl border px-4 py-3 sm:px-5" style={{ opacity: 1, background: theme === 'dark' ? 'rgba(7, 24, 36, 0.58)' : 'linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(231, 246, 244, 0.78))', borderColor: theme === 'dark' ? 'rgba(148, 206, 216, 0.13)' : 'rgba(15, 23, 42, 0.10)', boxShadow: theme === 'dark' ? '0 16px 44px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.045)' : '0 12px 36px rgba(15,23,42,.08)', backdropFilter: 'blur(28px) saturate(155%)', WebkitBackdropFilter: 'blur(28px) saturate(155%)' }}>
-          <button onClick={() => go('top')} className="flex items-center gap-3 font-extrabold tracking-tight" aria-label="Babr Capital"><span className="brand-mark">B</span><span className="hidden sm:block">BABR <span className="text-cyan-300">CAPITAL</span></span></button>
-          <div className="hidden items-center gap-1 lg:flex">{links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="nav-link" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>)}</div>
-          <div className="flex items-center gap-2"><div className="language-switcher glass-soft hidden md:flex"><button className={`lang-btn ${language === 'tg' ? 'active' : ''}`} onClick={() => change('tg')}>TJ</button><button className={`lang-btn ${language === 'ru' ? 'active' : ''}`} onClick={() => change('ru')}>RU</button></div><button onClick={toggle} className="icon-btn" aria-label="Theme">{theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}</button><button className="icon-btn lg:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Menu">{open ? <X size={19} /> : <Menu size={19} />}</button></div>
+        <nav className="glass nav-shell mx-auto flex max-w-7xl items-center gap-3 rounded-2xl border px-3 py-2.5 sm:px-4 lg:px-5" style={{ background: theme === 'dark' ? 'rgba(7, 24, 36, 0.58)' : 'linear-gradient(135deg, rgba(255,255,255,.82), rgba(231,246,244,.78))', borderColor: theme === 'dark' ? 'rgba(148,206,216,.13)' : 'rgba(15,23,42,.10)', boxShadow: theme === 'dark' ? '0 16px 44px rgba(0,0,0,.16)' : '0 12px 36px rgba(15,23,42,.08)', backdropFilter: 'blur(28px) saturate(155%)', WebkitBackdropFilter: 'blur(28px) saturate(155%)' }}>
+          <button onClick={() => go('top')} className="flex shrink-0 items-center gap-2.5 font-extrabold tracking-tight" aria-label="Babr Capital"><span className="brand-mark">B</span><span className="hidden xl:block">BABR <span className="text-cyan-300">CAPITAL</span></span></button>
+          <div className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 lg:flex">{links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="nav-link whitespace-nowrap px-2.5 py-2 text-sm xl:px-3" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>)}</div>
+          <div className="ml-auto flex shrink-0 items-center gap-1.5"><div className="language-switcher glass-soft hidden md:flex"><button className={`lang-btn ${language === 'tg' ? 'active' : ''}`} onClick={() => change('tg')}>TJ</button><button className={`lang-btn ${language === 'ru' ? 'active' : ''}`} onClick={() => change('ru')}>RU</button></div><button onClick={toggle} className="icon-btn" aria-label="Theme">{theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}</button><button className="icon-btn lg:hidden" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Menu">{open ? <X size={19} /> : <Menu size={19} />}</button></div>
         </nav>
         {open && <div className="glass mx-auto mt-2 max-w-7xl rounded-2xl border border-white/10 bg-slate-950/90 p-3 shadow-2xl backdrop-blur-xl lg:hidden"><div className="flex flex-col gap-1">{links.map(([id, label]) => <button key={id} onClick={() => go(id)} className="mobile-link w-full text-left text-slate-200 transition-colors hover:text-white" aria-current={active === id ? 'page' : undefined} style={active === id ? activeStyle : undefined}>{label}</button>)}</div></div>}
       </header>
